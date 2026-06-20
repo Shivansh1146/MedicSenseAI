@@ -1,6 +1,6 @@
 // MedicSense AI - Service Worker
-const CACHE_NAME = 'medicsense-ai-v20';
-const RUNTIME_CACHE = 'medicsense-runtime-v20';
+const CACHE_NAME = 'medicsense-ai-v21';
+const RUNTIME_CACHE = 'medicsense-runtime-v21';
 
 // Assets to cache on install
 const PRECACHE_ASSETS = [
@@ -9,6 +9,8 @@ const PRECACHE_ASSETS = [
   '/style_ultra.css',
   '/script_ultra.js',
   '/env-loader.js',
+  '/config.js',
+  '/live-clock.js',
   '/whatsapp_service.js',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap',
