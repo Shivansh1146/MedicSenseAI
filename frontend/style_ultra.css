@@ -5277,3 +5277,26 @@ textarea.form-control.is-invalid {
 .copy-btn i {
   font-size: 14px;
 }
+
+/* ========================================
+   MOBILE EMERGENCY BUTTON FIX
+   Only hides text on phone screens < 480px.
+   Desktop & tablet are completely unaffected.
+   ======================================== */
+@media (max-width: 480px) {
+  .emergency-btn span {
+    display: none;         /* Hide "Emergency" text on phones */
+  }
+
+  .emergency-btn {
+    padding: 8px 12px;     /* Tighten padding so only icon shows */
+    min-width: unset;
+    gap: 0;
+  }
+
+  .emergency-btn i {
+    font-size: 1rem;       /* Keep icon clearly visible */
+    margin: 0;
+  }
+}
+
