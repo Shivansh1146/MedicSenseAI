@@ -5308,3 +5308,10 @@ textarea.form-control.is-invalid {
 }
 
 
+
+
+/* Reduce container padding specifically inside the navbar for max breathing room */
+.navbar .container {
+  padding: 0 1.25rem;
+}
+

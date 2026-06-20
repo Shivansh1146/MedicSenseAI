@@ -9,18 +9,14 @@
     const el = document.getElementById('ms-live-clock');
     if (!el) return;
     const now = new Date();
+    // Compact format: "Sat 12:05 PM" – saves navbar space
     const timeStr = now.toLocaleTimeString('en-IN', {
       hour: '2-digit',
       minute: '2-digit',
-      second: '2-digit',
       hour12: true,
     });
-    const dateStr = now.toLocaleDateString('en-IN', {
-      weekday: 'short',
-      day: '2-digit',
-      month: 'short',
-    });
-    el.innerHTML = `<i class="fas fa-clock" style="margin-right:4px;opacity:0.7;"></i>${dateStr} &nbsp; ${timeStr}`;
+    const dayStr = now.toLocaleDateString('en-IN', { weekday: 'short' });
+    el.innerHTML = `<i class="fas fa-clock" style="margin-right:4px;opacity:0.7;"></i>${dayStr} ${timeStr}`;
   }
 
   // ── 2. Relative Time Helper ("just now", "5 min ago", etc.) ────────────
