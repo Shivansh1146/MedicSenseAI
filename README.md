@@ -46,16 +46,32 @@ medisence-ai/
 │
 ├── frontend/                   # Client-Side Static Files (Netlify)
 │   ├── config.js              # Environment-agnostic endpoint config
+│   ├── env-loader.js          # Auto-detects local vs production API URL
+│   ├── live-clock.js          # Live ticking clock injected into navbar on all pages
 │   ├── index.html             # Premium glassmorphic home interface
-│   ├── script_ultra.js        # Core frontend logic & API fetching
+│   ├── script_ultra.js        # Core frontend logic & API fetching (Render backend)
 │   ├── auth.html              # Firebase authentication layout
 │   ├── auth_firebase.js       # Firebase authentication client logic
+│   ├── sw.js                  # Service Worker (PWA, cache v21)
 │   └── style_ultra.css        # Premium dark-themed visual style sheet
 │
 ├── netlify.toml                # Frontend static SPA routing and CSP rules
 ├── render.yaml                 # Backend Infrastructure-as-Code service deployment
 └── README.md                   # This documentation
 ```
+
+---
+
+## 🔧 Recent Fixes & Polish (June 2026)
+
+| Fix | Description |
+| :--- | :--- |
+| **Navbar overflow** | Removed double padding from `.nav-content` — EMERGENCY button now always fully visible |
+| **Live clock** | Compact `Sat 12:05 PM` format — no longer takes too much navbar space |
+| **Clock position** | Clock is injected inside the `user-controls` pill (not floating separately) |
+| **Mobile Emergency** | Emergency button text hidden on `< 480px` phones — icon-only for compact mobile nav |
+| **API URL hardening** | All `localhost:5000` fallbacks replaced with production Render backend URL |
+| **Service Worker** | Cache bumped to v21 to force browsers to load the latest UI changes |
 
 ---
 
