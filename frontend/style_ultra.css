@@ -5298,3 +5298,11 @@ textarea.form-control.is-invalid {
   }
 }
 
+
+
+/* Fix for invisible user-controls pill in dark mode */
+[data-theme="dark"] .user-controls {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
