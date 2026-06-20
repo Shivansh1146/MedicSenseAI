@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="config.js"></script>
     <title>Health Timeline - MedicSense AI</title>
     <link
       rel="stylesheet"
@@ -793,7 +794,7 @@
 
         try {
           const res = await fetch(
-            `/api/history?user_id=${encodeURIComponent(userId)}`
+            `${(window.ENV && window.ENV.API_BASE_URL) || 'http://localhost:5000/api'}/history?user_id=${encodeURIComponent(userId)}`
           );
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
           const data = await res.json();

@@ -366,7 +366,8 @@
         }
       }
     </style>
-  </head>
+      <script src="config.js"></script>
+</head>
   <body>
     <div class="faq-container">
             <button onclick="window.history.back()" class="back-button">
@@ -430,7 +431,7 @@
       // Load FAQs from backend
       async function loadFAQs() {
         try {
-          const response = await fetch("http://localhost:5000/api/faqs");
+          const response = await fetch(`${(window.ENV && window.ENV.API_BASE_URL) || 'http://localhost:5000/api'}/faqs`);
           const data = await response.json();
 
           if (data.success) {
