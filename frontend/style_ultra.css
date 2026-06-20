@@ -1406,9 +1406,10 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 1.5rem;
+  width: 100%;
   max-width: 1320px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0;
 }
 
 .logo {
@@ -5305,4 +5306,5 @@ textarea.form-control.is-invalid {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 255, 255, 0.1);
 }
+
 
