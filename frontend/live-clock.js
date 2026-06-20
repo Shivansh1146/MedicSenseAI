@@ -54,27 +54,46 @@
   // ── 4. Inject the live clock element into nav if not present ────────────
   function injectClock() {
     if (document.getElementById('ms-live-clock')) return;
-    const navActions = document.querySelector('.nav-actions');
-    if (!navActions) return;
+    const userControls = document.querySelector('.user-controls');
+    const container = userControls || document.querySelector('.nav-actions');
+    if (!container) return;
 
     const clockEl = document.createElement('div');
     clockEl.id = 'ms-live-clock';
-    clockEl.style.cssText = `
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: var(--text-secondary, #94a3b8);
-      letter-spacing: 0.03em;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      padding: 4px 10px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.08);
-      margin-right: 8px;
-      font-family: 'Space Grotesk', monospace;
-    `;
-    navActions.insertBefore(clockEl, navActions.firstChild);
+    
+    if (userControls) {
+      clockEl.style.cssText = `
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--text-secondary, #94a3b8);
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        padding: 4px 10px 4px 6px;
+        margin-right: 6px;
+        border-right: 1px solid var(--border-main, rgba(255,255,255,0.1));
+        font-family: 'Space Grotesk', monospace;
+      `;
+      container.insertBefore(clockEl, container.firstChild);
+    } else {
+      clockEl.style.cssText = `
+        font-size: 0.72rem;
+        font-weight: 500;
+        color: var(--text-secondary, #94a3b8);
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        padding: 4px 10px;
+        background: rgba(255,255,255,0.06);
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.08);
+        margin-right: 8px;
+        font-family: 'Space Grotesk', monospace;
+      `;
+      container.insertBefore(clockEl, container.firstChild);
+    }
   }
 
   // ── 5. Boot ──────────────────────────────────────────────────────────────
