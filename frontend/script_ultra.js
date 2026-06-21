@@ -2022,7 +2022,7 @@ function updateAppointmentsList() {
             <div class="appointment-actions">
               ${
                 showCancel
-                  ? `<button class="cancel-btn" data-apt-id="${apt.id}" onclick="event.stopPropagation(); window.cancelAppointmentUI('${apt.id}', this)">Cancel</button>`
+                  ? `<button class="cancel-btn" data-apt-id="${apt.id}" onclick="try{event.stopPropagation();}catch(e){} window.cancelAppointmentUI('${apt.id}', this)">Cancel</button>`
                   : ""
               }
             </div>
@@ -2077,7 +2077,8 @@ async function cancelAppointmentUI(appointmentId, btnElement) {
 
   // Try to cancel via API (for backend sync), but don't fail if backend doesn't have it
   const userId = getUserId();
-  const apiUrl = `/api/appointments/${appointmentId}/cancel`;
+  const baseUrl = (window.ENV && window.ENV.API_BASE_URL) || "http://localhost:5000/api";
+  const apiUrl = `${baseUrl}/appointments/${appointmentId}/cancel`;
 
   console.log(`[Appointments] Attempting backend sync to: ${apiUrl}`);
 
