@@ -2708,7 +2708,7 @@ select.form-control option:focus {
   outline: none;
   background: transparent;
   margin-top: 12px;
-  --range-fill: 50%;
+  --range-fill: 0%;
 }
 
 /* WebKit/Chrome/Safari — gradient on the track pseudo-element */
