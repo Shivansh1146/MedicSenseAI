@@ -2002,11 +2002,6 @@ function updateAppointmentsList() {
                 <span class="status-badge ${statusClass}">${statusLabel}</span>
             </div>
             <div class="appointment-actions">
-              ${
-                showCancel
-                  ? `<button class="cancel-btn" data-apt-id="${apt.id}">Cancel</button>`
-                  : ""
-              }
             </div>
         </div>`;
     })
@@ -2014,18 +2009,6 @@ function updateAppointmentsList() {
 
   // Immediately populate countdown times
   updateAppointmentTimes();
-
-  // Attach event listeners to all cancel buttons
-  listElement.querySelectorAll(".cancel-btn").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const aptId = btn.dataset.aptId || btn.getAttribute("data-apt-id");
-      if (aptId) {
-        cancelAppointmentUI(aptId, btn);
-      }
-    });
-  });
 }
 
 window.cancelAppointmentUI = cancelAppointmentUI;
