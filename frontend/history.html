@@ -393,6 +393,10 @@
     <button onclick="window.history.back()" class="back-btn">
       <i class="fas fa-arrow-left"></i> Back
     </button>
+    
+    <button onclick="clearTimelineData()" class="back-btn" style="left: auto; right: 2rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.2);">
+      <i class="fas fa-trash-alt"></i> Clear Data
+    </button>
 
     <div class="timeline-page-container">
       <div class="tl-header">
@@ -773,6 +777,34 @@
             delay += 0.1;
           }
         }
+      }
+
+      // ─────────────────────────────────────────────────────────────────────────
+      //  CLEAR TIMELINE DATA
+      // ─────────────────────────────────────────────────────────────────────────
+      async function clearTimelineData() {
+        if (!confirm("Are you sure you want to completely clear your health timeline? This cannot be undone.")) return;
+
+        const userId = localStorage.getItem("medicsense_user_id") || sessionStorage.getItem("userId");
+        
+        // 1. Clear local storage
+        localStorage.removeItem("medicsense_symptoms");
+        localStorage.removeItem("medicsense_appointments");
+        
+        // 2. Clear backend history if logged in
+        if (userId) {
+          try {
+            await fetch(
+              `${(window.ENV && window.ENV.API_BASE_URL) || 'http://localhost:5000/api'}/history/clear?user_id=${encodeURIComponent(userId)}`,
+              { method: "DELETE" }
+            );
+          } catch (e) {
+            console.warn("Backend clear failed:", e);
+          }
+        }
+        
+        // 3. Reload the page to reflect the fresh empty state
+        window.location.reload();
       }
 
       // ─────────────────────────────────────────────────────────────────────────
