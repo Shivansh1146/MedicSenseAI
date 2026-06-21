@@ -786,27 +786,84 @@
           sessionStorage.getItem("userId") ||
           null;
 
-        if (!userId) {
-          // Not logged in — show dynamic demo
-          renderTimeline(getDemoEvents());
-          return;
+        let allEvents = [];
+
+        if (userId) {
+          try {
+            const res = await fetch(
+              `${(window.ENV && window.ENV.API_BASE_URL) || 'http://localhost:5000/api'}/history?user_id=${encodeURIComponent(userId)}`
+            );
+            if (res.ok) {
+              const data = await res.json();
+              if (data.success && data.events) {
+                allEvents = allEvents.concat(data.events);
+              }
+            }
+          } catch (err) {
+            console.warn("[Timeline] API fetch failed:", err);
+          }
         }
 
+        // Merge local symptoms from localStorage
         try {
-          const res = await fetch(
-            `${(window.ENV && window.ENV.API_BASE_URL) || 'http://localhost:5000/api'}/history?user_id=${encodeURIComponent(userId)}`
-          );
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          const data = await res.json();
+          const localSymptoms = JSON.parse(localStorage.getItem("medicsense_symptoms") || "[]");
+          localSymptoms.forEach(sym => {
+            allEvents.push({
+              id: sym.timestamp,
+              type: "symptom",
+              title: "Symptom Check",
+              description: `Reported symptoms: ${sym.symptoms}. Duration: ${sym.duration}.`,
+              severity: sym.severity,
+              created_at: sym.timestamp,
+              badge: "Health"
+            });
+          });
+        } catch (e) {
+          console.error("Error parsing local symptoms:", e);
+        }
 
-          if (data.success && data.events && data.events.length > 0) {
-            renderTimeline(data.events);
-          } else {
-            // Backend returned empty — show dynamic demo with real timestamps
-            renderTimeline(getDemoEvents());
+        // Merge local appointments from localStorage
+        try {
+          const localAppts = JSON.parse(localStorage.getItem("medicsense_appointments") || "[]");
+          localAppts.forEach(apt => {
+            if (apt.status !== "cancelled") {
+              // Ensure we don't duplicate appointments from the backend
+              // We'll use the ID or timestamp to deduplicate later
+              allEvents.push({
+                id: apt.id,
+                type: "appointment",
+                title: "Appointment Confirmed",
+                doctor: apt.doctor_name || apt.doctor || "Doctor",
+                description: apt.reason || "General consultation",
+                time: apt.time,
+                date: apt.date,
+                status: apt.status,
+                created_at: apt.timestamp || apt.date || new Date().toISOString(),
+                badge: "Clinical"
+              });
+            }
+          });
+        } catch (e) {
+          console.error("Error parsing local appointments:", e);
+        }
+
+        // Deduplicate events (by exact id or by created_at + title)
+        const uniqueEvents = [];
+        const seen = new Set();
+        allEvents.forEach(ev => {
+          const key = ev.id ? String(ev.id) : (ev.created_at + "_" + ev.title);
+          if (!seen.has(key)) {
+            seen.add(key);
+            uniqueEvents.push(ev);
           }
-        } catch (err) {
-          console.warn("[Timeline] API fetch failed, using demo:", err);
+        });
+
+        if (uniqueEvents.length > 0) {
+          // Sort newest first
+          uniqueEvents.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+          renderTimeline(uniqueEvents);
+        } else {
+          // If totally empty and not logged in (or brand new user), show dynamic demo
           renderTimeline(getDemoEvents());
         }
       }
