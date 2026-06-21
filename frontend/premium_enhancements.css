@@ -613,3 +613,18 @@ select.form-control::placeholder,
 .send-btn i {
   font-size: 1rem !important;
 }
+
+/* Dark Mode Icon Button Fixes - prevent bright white square on hover */
+[data-theme="dark"] .icon-btn {
+  background: rgba(30, 41, 59, 0.45) !important;
+  border-color: rgba(148, 163, 184, 0.2) !important;
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .icon-btn:hover {
+  background: rgba(30, 41, 59, 0.8) !important;
+  border-color: var(--primary-400) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.25) !important;
+  transform: translateY(-1px) !important;
+}
