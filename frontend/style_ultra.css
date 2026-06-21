@@ -1,4 +1,4 @@
-﻿/**
+/**
  * MedicSense AI - Ultra Professional Frontend CSS
  * Problem Statement Solution Design
  * Best-in-Class Healthcare UI
@@ -3055,8 +3055,9 @@ select.form-control option:focus {
 
 .appointments-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  grid-template-columns: 1fr;
+  max-width: 850px;
+  margin: 0 auto;
 }
 
 .appointment-form-card {

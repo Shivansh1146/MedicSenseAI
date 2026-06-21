@@ -1989,19 +1989,17 @@ function updateAppointmentsList() {
         <div class="appointment-card apt-card-${apt.status}" id="appointment-${
         apt.id
       }" data-id="${apt.id}">
-            <div class="apt-details-left" style="display: flex; align-items: center; flex: 1;">
-                <div class="apt-doctor-avatar">${docInfo.icon}</div>
-                <div class="appointment-info">
-                    <h4>${doctorDisplay}</h4>
-                    <span class="apt-specialty-label">${docInfo.label}</span>
-                    <div class="appointment-date" data-time="${fullTime}"></div>
-                    ${
-                      apt.reason
-                        ? `<p class="appointment-reason"><i class="fas fa-notes-medical"></i> ${apt.reason}</p>`
-                        : ""
-                    }
-                    <span class="status-badge ${statusClass}">${statusLabel}</span>
-                </div>
+            <div class="apt-doctor-avatar">${docInfo.icon}</div>
+            <div class="appointment-info">
+                <h4>${doctorDisplay}</h4>
+                <span class="apt-specialty-label">${docInfo.label}</span>
+                <div class="appointment-date" data-time="${fullTime}"></div>
+                ${
+                  apt.reason
+                    ? `<p class="appointment-reason"><i class="fas fa-notes-medical"></i> ${apt.reason}</p>`
+                    : ""
+                }
+                <span class="status-badge ${statusClass}">${statusLabel}</span>
             </div>
             <div class="appointment-actions">
             </div>
