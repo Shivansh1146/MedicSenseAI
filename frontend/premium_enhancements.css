@@ -460,3 +460,52 @@ NO animations (foundational pass only)
 NO heavy borders
 NO inconsistent spacing
 */
+
+/* ============================================================
+   UNIFIED CONTRAST & VISIBILITY FOR INPUTS & PLACEHOLDERS
+   ============================================================ */
+
+/* Light mode defaults */
+.form-control,
+.symptom-textarea,
+select.form-control {
+  color: var(--text-main) !important;
+  background: #ffffff !important; /* Force clean white background */
+  border-color: #cbd5e1 !important; /* Readable border */
+}
+
+.chat-input {
+  color: var(--text-main) !important;
+  background: transparent !important;
+}
+
+/* Clear, highly readable placeholder text in light mode */
+.form-control::placeholder,
+.symptom-textarea::placeholder,
+select.form-control::placeholder,
+.chat-input::placeholder {
+  color: #475569 !important; /* Dark Slate Gray (highly readable) */
+  opacity: 1 !important;
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .symptom-textarea,
+[data-theme="dark"] select.form-control {
+  color: #f8fafc !important;
+  background: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] .chat-input {
+  color: #f8fafc !important;
+  background: transparent !important;
+}
+
+[data-theme="dark"] .form-control::placeholder,
+[data-theme="dark"] .symptom-textarea::placeholder,
+[data-theme="dark"] select.form-control::placeholder,
+[data-theme="dark"] .chat-input::placeholder {
+  color: #94a3b8 !important; /* Light slate gray */
+  opacity: 1 !important;
+}
