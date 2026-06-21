@@ -479,13 +479,37 @@ select.form-control {
   background: transparent !important;
 }
 
-/* Clear, highly readable placeholder text in light mode */
+/* Clear, highly readable placeholder text in light mode (using vendor prefixes to bypass browser defaults) */
+.form-control::-webkit-input-placeholder,
+.symptom-textarea::-webkit-input-placeholder,
+select.form-control::-webkit-input-placeholder,
+.chat-input::-webkit-input-placeholder {
+  color: #111827 !important; /* Matches --text-main (highly visible, excellent contrast) */
+  opacity: 0.75 !important;   /* Slightly softer so it feels like a placeholder, but fully visible */
+}
+
+.form-control::-moz-placeholder,
+.symptom-textarea::-moz-placeholder,
+select.form-control::-moz-placeholder,
+.chat-input::-moz-placeholder {
+  color: #111827 !important;
+  opacity: 0.75 !important;
+}
+
+.form-control:-ms-input-placeholder,
+.symptom-textarea:-ms-input-placeholder,
+select.form-control:-ms-input-placeholder,
+.chat-input:-ms-input-placeholder {
+  color: #111827 !important;
+  opacity: 0.75 !important;
+}
+
 .form-control::placeholder,
 .symptom-textarea::placeholder,
 select.form-control::placeholder,
 .chat-input::placeholder {
-  color: #475569 !important; /* Dark Slate Gray (highly readable) */
-  opacity: 1 !important;
+  color: #111827 !important;
+  opacity: 0.75 !important;
 }
 
 /* Dark mode overrides */
@@ -502,10 +526,34 @@ select.form-control::placeholder,
   background: transparent !important;
 }
 
+[data-theme="dark"] .form-control::-webkit-input-placeholder,
+[data-theme="dark"] .symptom-textarea::-webkit-input-placeholder,
+[data-theme="dark"] select.form-control::-webkit-input-placeholder,
+[data-theme="dark"] .chat-input::-webkit-input-placeholder {
+  color: #cbd5e1 !important;
+  opacity: 0.7 !important;
+}
+
+[data-theme="dark"] .form-control::-moz-placeholder,
+[data-theme="dark"] .symptom-textarea::-moz-placeholder,
+[data-theme="dark"] select.form-control::-moz-placeholder,
+[data-theme="dark"] .chat-input::-moz-placeholder {
+  color: #cbd5e1 !important;
+  opacity: 0.7 !important;
+}
+
+[data-theme="dark"] .form-control:-ms-input-placeholder,
+[data-theme="dark"] .symptom-textarea:-ms-input-placeholder,
+[data-theme="dark"] select.form-control:-ms-input-placeholder,
+[data-theme="dark"] .chat-input:-ms-input-placeholder {
+  color: #cbd5e1 !important;
+  opacity: 0.7 !important;
+}
+
 [data-theme="dark"] .form-control::placeholder,
 [data-theme="dark"] .symptom-textarea::placeholder,
 [data-theme="dark"] select.form-control::placeholder,
 [data-theme="dark"] .chat-input::placeholder {
-  color: #94a3b8 !important; /* Light slate gray */
-  opacity: 1 !important;
+  color: #cbd5e1 !important;
+  opacity: 0.7 !important;
 }
