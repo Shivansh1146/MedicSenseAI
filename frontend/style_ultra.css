@@ -3654,7 +3654,7 @@ select.form-control option:focus {
 
   background: transparent; /* removes dark rectangle */
 
-  color: #cbd5f5;
+  color: var(--text-main);
   font-size: 15px;
 
   resize: none; /* removes arrows */
@@ -3670,7 +3670,7 @@ textarea::-webkit-resizer {
 }
 
 .chat-input::placeholder {
-  color: rgba(203, 213, 245, 0.6);
+  color: var(--text-muted);
 }
 
 /* ATTACH */
