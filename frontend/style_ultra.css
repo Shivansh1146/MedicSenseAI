@@ -148,9 +148,12 @@ body.dark-mode {
 [data-theme="dark"] h3,
 [data-theme="dark"] h4,
 [data-theme="dark"] strong,
-[data-theme="dark"] .logo-text,
 [data-theme="dark"] label {
   color: #ffffff !important;
+}
+
+[data-theme="dark"] .logo-sub {
+  color: var(--primary-400) !important;
 }
 
 [data-theme="dark"] .card,

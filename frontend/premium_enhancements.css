@@ -557,3 +557,59 @@ select.form-control::placeholder,
   color: #cbd5e1 !important;
   opacity: 0.7 !important;
 }
+
+/* ============================================================
+   CHAT INPUT BUTTONS REFINEMENTS (Font Awesome Vectors)
+   ============================================================ */
+
+.attach-btn,
+.mic-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  font-size: 1.1rem !important;
+}
+
+/* Light mode styling */
+.attach-btn {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #475569 !important;
+}
+
+.attach-btn:hover {
+  background: rgba(0, 0, 0, 0.09) !important;
+  color: #0f172a !important;
+}
+
+.mic-btn {
+  color: #64748b !important;
+}
+
+.mic-btn:hover {
+  color: #0f172a !important;
+}
+
+/* Dark mode styling */
+[data-theme="dark"] .attach-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .attach-btn:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .mic-btn {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .mic-btn:hover {
+  color: #ffffff !important;
+}
+
+/* Send button icon adjustment */
+.send-btn i {
+  font-size: 1rem !important;
+}
