@@ -614,17 +614,23 @@ select.form-control::placeholder,
   font-size: 1rem !important;
 }
 
-/* Dark Mode Icon Button Fixes - prevent bright white square on hover */
+/* Dark Mode Icon Button Fixes - transparent bg, no square box */
 [data-theme="dark"] .icon-btn {
-  background: rgba(30, 41, 59, 0.45) !important;
-  border-color: rgba(148, 163, 184, 0.2) !important;
-  color: #cbd5e1 !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  color: #94a3b8 !important;
+  box-shadow: none !important;
 }
 
 [data-theme="dark"] .icon-btn:hover {
-  background: rgba(30, 41, 59, 0.8) !important;
-  border-color: var(--primary-400) !important;
-  color: #ffffff !important;
-  box-shadow: 0 0 12px rgba(99, 102, 241, 0.25) !important;
+  background: rgba(99, 102, 241, 0.12) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+  color: #a5b4fc !important;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.2) !important;
   transform: translateY(-1px) !important;
+}
+
+/* Also remove border on the light mode at rest state */
+.icon-btn {
+  border: 1.5px solid transparent !important;
 }

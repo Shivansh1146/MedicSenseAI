@@ -56,7 +56,7 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="style_ultra.css?v=motion19" />
-  <link rel="stylesheet" href="premium_enhancements.css?v=3" />
+  <link rel="stylesheet" href="premium_enhancements.css?v=4" />
   <link rel="stylesheet" href="layout_rebalance.css?v=1" />
   <link rel="stylesheet" href="micro_interactions.css?v=1" />
   <link rel="stylesheet" href="inline_slots.css?v=1" />
@@ -66,6 +66,26 @@
   <link rel="stylesheet" href="ultra_compact.css?v=1" />
   <link rel="stylesheet" href="ai_chat_refined.css?v=6" />
   <style>
+    /* ============================================================
+       CRITICAL FIX: Remove square background from dark mode icon buttons
+       This inline style overrides any cached external stylesheets
+       ============================================================ */
+    [data-theme="dark"] .icon-btn {
+      background: transparent !important;
+      background-color: transparent !important;
+      background-image: none !important;
+      border: 1.5px solid transparent !important;
+      box-shadow: none !important;
+      color: #94a3b8 !important;
+    }
+    [data-theme="dark"] .icon-btn:hover {
+      background: rgba(99, 102, 241, 0.12) !important;
+      background-color: rgba(99, 102, 241, 0.12) !important;
+      border: 1.5px solid rgba(99, 102, 241, 0.3) !important;
+      color: #a5b4fc !important;
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.2) !important;
+    }
+
     /* Auth Modal Styles */
     .modal-overlay {
       position: fixed;
