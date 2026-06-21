@@ -780,18 +780,90 @@
       // ─────────────────────────────────────────────────────────────────────────
 
       async function loadTimeline() {
-        // Get current user_id from Firebase auth storage
         const userId =
           localStorage.getItem("medicsense_user_id") ||
           sessionStorage.getItem("userId") ||
           null;
 
-        let allEvents = [];
+        // Helper to get local data instantly
+        function getLocalEvents() {
+          const localEvents = [];
+          try {
+            const localSymptoms = JSON.parse(localStorage.getItem("medicsense_symptoms") || "[]");
+            localSymptoms.forEach(sym => {
+              localEvents.push({
+                id: sym.timestamp,
+                type: "symptom",
+                title: "Symptom Check",
+                description: `Reported symptoms: ${sym.symptoms}. Duration: ${sym.duration}.`,
+                severity: sym.severity,
+                created_at: sym.timestamp,
+                badge: "Health"
+              });
+            });
+          } catch (e) { console.error("Error parsing local symptoms:", e); }
 
+          try {
+            const localAppts = JSON.parse(localStorage.getItem("medicsense_appointments") || "[]");
+            localAppts.forEach(apt => {
+              if (apt.status !== "cancelled") {
+                localEvents.push({
+                  id: apt.id,
+                  type: "appointment",
+                  title: "Appointment Confirmed",
+                  doctor: apt.doctor_name || apt.doctor || "Doctor",
+                  description: apt.reason || "General consultation",
+                  time: apt.time,
+                  date: apt.date,
+                  status: apt.status,
+                  created_at: apt.timestamp || apt.date || new Date().toISOString(),
+                  badge: "Clinical"
+                });
+              }
+            });
+          } catch (e) { console.error("Error parsing local appointments:", e); }
+          return localEvents;
+        }
+
+        // Helper to deduplicate and render
+        function updateUI(events, isFinalLoad) {
+          const uniqueEvents = [];
+          const seen = new Set();
+          events.forEach(ev => {
+            const key = ev.id ? String(ev.id) : (ev.created_at + "_" + ev.title);
+            if (!seen.has(key)) {
+              seen.add(key);
+              uniqueEvents.push(ev);
+            }
+          });
+
+          if (uniqueEvents.length > 0) {
+            uniqueEvents.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+            renderTimeline(uniqueEvents);
+          } else if (isFinalLoad) {
+            // Only show the empty state if we're absolutely done checking backend
+            renderTimeline([]);
+          }
+        }
+
+        // 1. INSTANT LOCAL RENDER (Zero Delay)
+        let allEvents = getLocalEvents();
+        if (allEvents.length > 0) {
+          updateUI(allEvents, false);
+        }
+
+        // 2. ASYNC BACKEND SYNC (Background)
         if (userId) {
           try {
             const res = await fetch(
-              `${(window.ENV && window.ENV.API_BASE_URL) || 'http://localhost:5000/api'}/history?user_id=${encodeURIComponent(userId)}`
+              `${(window.ENV && window.ENV.API_BASE_URL) || 'http://localhost:5000/api'}/history?user_id=${encodeURIComponent(userId)}&t=${Date.now()}`,
+              {
+                headers: {
+                  'Cache-Control': 'no-cache, no-store, must-revalidate',
+                  'Pragma': 'no-cache',
+                  'Expires': '0'
+                }
+              }
             );
             if (res.ok) {
               const data = await res.json();
@@ -804,68 +876,8 @@
           }
         }
 
-        // Merge local symptoms from localStorage
-        try {
-          const localSymptoms = JSON.parse(localStorage.getItem("medicsense_symptoms") || "[]");
-          localSymptoms.forEach(sym => {
-            allEvents.push({
-              id: sym.timestamp,
-              type: "symptom",
-              title: "Symptom Check",
-              description: `Reported symptoms: ${sym.symptoms}. Duration: ${sym.duration}.`,
-              severity: sym.severity,
-              created_at: sym.timestamp,
-              badge: "Health"
-            });
-          });
-        } catch (e) {
-          console.error("Error parsing local symptoms:", e);
-        }
-
-        // Merge local appointments from localStorage
-        try {
-          const localAppts = JSON.parse(localStorage.getItem("medicsense_appointments") || "[]");
-          localAppts.forEach(apt => {
-            if (apt.status !== "cancelled") {
-              // Ensure we don't duplicate appointments from the backend
-              // We'll use the ID or timestamp to deduplicate later
-              allEvents.push({
-                id: apt.id,
-                type: "appointment",
-                title: "Appointment Confirmed",
-                doctor: apt.doctor_name || apt.doctor || "Doctor",
-                description: apt.reason || "General consultation",
-                time: apt.time,
-                date: apt.date,
-                status: apt.status,
-                created_at: apt.timestamp || apt.date || new Date().toISOString(),
-                badge: "Clinical"
-              });
-            }
-          });
-        } catch (e) {
-          console.error("Error parsing local appointments:", e);
-        }
-
-        // Deduplicate events (by exact id or by created_at + title)
-        const uniqueEvents = [];
-        const seen = new Set();
-        allEvents.forEach(ev => {
-          const key = ev.id ? String(ev.id) : (ev.created_at + "_" + ev.title);
-          if (!seen.has(key)) {
-            seen.add(key);
-            uniqueEvents.push(ev);
-          }
-        });
-
-        if (uniqueEvents.length > 0) {
-          // Sort newest first
-          uniqueEvents.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
-          renderTimeline(uniqueEvents);
-        } else {
-          // Show empty state instead of demo data, matching notifications behavior
-          renderTimeline([]);
-        }
+        // Final UI update after backend returns (or if guest user)
+        updateUI(allEvents, true);
       }
 
       // ─────────────────────────────────────────────────────────────────────────

@@ -119,6 +119,10 @@ medisence-ai/
 
 | Fix | Description |
 | :--- | :--- |
+| **Health Timeline lag fix** | Rewrote timeline loading to render local events instantly (0ms delay), syncing backend data seamlessly in the background |
+| **Cancel Button fix** | Fixed un-clickable Cancel buttons on Recent Appointments by replacing event delegation with guaranteed inline `onclick` handlers |
+| **Dummy data seeding removed** | Removed the hardcoded `demo_seed_001` dummy appointment that auto-populated into local storage when the dashboard was empty |
+| **Backend DB wiped & reset** | Cleaned and reset all SQLite and JSON backend databases to provide a 100% fresh state for production |
 | **Severity slider starts at 0** | Slider now defaults to `0/10` — users must actively drag to select 1–10 before submission |
 | **Dark mode icon-btn squares** | Removed visible white/light-grey square box from navbar buttons in dark mode; buttons now transparent with subtle purple glow on hover |
 | **Dark mode logo purple** | `AI` portion of the MedicSense **AI** logo now correctly shows purple (`--primary-400`) in dark mode |
@@ -130,7 +134,7 @@ medisence-ai/
 | **Live clock format** | Compact `Sun 08:07 pm` format; clock integrated into the user-controls pill, not floating separately |
 | **Mobile Emergency button** | Emergency button text hides on `< 480px` — icon only for compact mobile nav |
 | **Render API fallback** | All `localhost` fallbacks replaced with production Render URL in `script_ultra.js` |
-| **Service Worker cache** | Bumped to `v29` to force browsers to load the latest CSS & layout changes |
+| **Service Worker cache** | Bumped to `v36` to force browsers to load the latest JS & DOM fixes |
 
 ---
 
