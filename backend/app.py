@@ -103,47 +103,6 @@ def history():
     """Serve Health Timeline page"""
     return render_template("history.html")
 
-@app.route("/api/history/clear", methods=["DELETE"])
-def clear_history():
-    user_id = request.args.get("user_id")
-    if not user_id:
-        return jsonify({"success": False, "error": "user_id required"}), 400
-    
-    # 1. Clear appointments from database
-    try:
-        from repositories.appointment_repository import appointment_repository
-        appts = appointment_repository.get_appointments_by_user(user_id)
-        for apt in appts:
-            appointment_repository.cancel_appointment(apt['id'])
-    except Exception as e:
-        print(f"Error clearing db appointments: {e}")
-        
-    # 2. Clear chats
-    try:
-        from init_db import get_connection
-        conversations = db.get_conversations(user_id, limit=100)
-        conn = get_connection()
-        cur = conn.cursor()
-        for conv in conversations:
-            cur.execute("DELETE FROM messages WHERE conversation_id = ?", (conv["id"],))
-            cur.execute("DELETE FROM conversations WHERE id = ?", (conv["id"],))
-        conn.commit()
-        conn.close()
-    except Exception as e:
-        print(f"Error clearing chats: {e}")
-
-    # 3. Clear JSON files if they exist
-    try:
-        if os.path.exists("appointments.json"):
-            with open("appointments.json", "r") as f:
-                all_appts = json.load(f)
-            all_appts = [a for a in all_appts if a.get("user_id") != user_id and a.get("userId") != user_id]
-            with open("appointments.json", "w") as f:
-                json.dump(all_appts, f)
-    except: pass
-    
-    return jsonify({"success": True})
-
 
 @app.route("/api/history", methods=["GET"])
 def get_history():
