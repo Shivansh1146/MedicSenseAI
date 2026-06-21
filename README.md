@@ -8,7 +8,7 @@ It is built as a modern **split-stack application** utilizing a Flask backend an
 
 * **Live Frontend:** [https://medicsenseai.netlify.app](https://medicsenseai.netlify.app)
 * **Live Backend API:** [https://medicsense-ai.onrender.com](https://medicsense-ai.onrender.com)
-* **GitHub Branch (Latest Fixes):** [`fix/slider-and-ui-cleanup`](https://github.com/Shivansh1146/MedicSenseAI/tree/fix/slider-and-ui-cleanup)
+* **GitHub Branch (Latest Fixes):** [`main`](https://github.com/Shivansh1146/MedicSenseAI/tree/main)
 
 ---
 
@@ -27,6 +27,7 @@ It is built as a modern **split-stack application** utilizing a Flask backend an
 * **Interactive Appointments** — Book slots with local specialists matched to symptom type; SQLite double-booking prevention is enforced at database level.
 * **Family Doctor System** — Save a designated family doctor and start quick consultations.
 * **Health Timeline** — Unified history view showing all symptom checks, AI chats, scanner uploads, and booking activity.
+* **Empty State Handling** — Graceful "No data" UI states for new users in the Health Timeline, mirroring the Notifications design.
 * **Notifications System** — Appointment reminders and health alert notifications via the notification page.
 
 ### 🔐 Auth & Security
