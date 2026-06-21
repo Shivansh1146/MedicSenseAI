@@ -178,12 +178,6 @@ body.dark-mode {
   color: #ffffff !important;
 }
 
-[data-theme="dark"] .severity-slider {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
 
 [data-theme="dark"] .top-bar {
   background: #020617 !important;
@@ -212,12 +206,16 @@ body.dark-mode {
 }
 
 /* Glassmorphism Refinements in Dark Mode */
-[data-theme="dark"] .logo-icon,
 [data-theme="dark"] .severity-badge,
-[data-theme="dark"] .section-badge,
-[data-theme="dark"] .feature-card i {
+[data-theme="dark"] .section-badge {
   background: rgba(99, 102, 241, 0.2);
   border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #a5b4fc;
+}
+
+/* Keep logo-icon gradient in dark mode â€” no override */
+
+[data-theme="dark"] .feature-card i {
   color: #a5b4fc;
 }
 
@@ -552,7 +550,6 @@ body.dark-mode {
 [data-theme="dark"] .assistant-message {
   background: rgba(30, 41, 59, 0.8) !important;
   color: #cbd5e1 !important;
-  border: 1px solid rgba(148, 163, 184, 0.2) !important;
 }
 
 [data-theme="dark"] .user-message {
@@ -1075,23 +1072,23 @@ body.dark-mode {
   background: #10b981 !important;
 }
 
-/* AI Avatar */
+/* AI Avatar - restore gradient, remove border square */
 [data-theme="dark"] .ai-avatar {
-  background: rgba(99, 102, 241, 0.2) !important;
-  border: 2px solid rgba(99, 102, 241, 0.3) !important;
+  background: none !important;
+  border: none !important;
   color: #a5b4fc !important;
 }
 
 /* Chat Preview */
 [data-theme="dark"] .chat-preview {
-  background: rgba(2, 6, 23, 0.6) !important;
+  background: transparent !important;
 }
 
 [data-theme="dark"] .chat-bubble,
 [data-theme="dark"] .ai-bubble {
-  background: rgba(30, 41, 59, 0.8) !important;
+  background: transparent !important;
   color: #cbd5e1 !important;
-  border: 1px solid rgba(148, 163, 184, 0.2) !important;
+  border: none !important;
 }
 
 /* Card CTA Button */
@@ -1430,14 +1427,14 @@ body {
 .logo-icon {
   width: 42px;
   height: 42px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 11px;
+  background: none;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 1.375rem;
-  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.25);
+  color: #667eea;
+  font-size: 1.65rem;
+  box-shadow: none;
 }
 
 .logo-icon i {
@@ -2233,28 +2230,21 @@ section.hero {
 }
 
 .ai-avatar {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 16px;
+  width: 52px;
+  height: 52px;
+  background: none;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 2rem;
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
+  color: #667eea;
+  font-size: 2.2rem;
+  box-shadow: none;
   position: relative;
 }
 
 .ai-avatar::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 18px;
-  z-index: -1;
-  opacity: 0.3;
-  filter: blur(8px);
+  display: none;
 }
 
 .card-header h3 {
@@ -2283,11 +2273,11 @@ section.hero {
 }
 
 .chat-preview {
-  background: var(--bg-page);
+  background: transparent;
   border-radius: 14px;
   padding: 1.25rem;
-  border: 1px solid var(--border-main);
-  opacity: 0.96;
+  border: none;
+  opacity: 1;
 }
 
 .quick-actions-preview {
@@ -2694,7 +2684,7 @@ select.form-control option:focus {
 }
 
 .severity-label {
-  color: #e5e7eb;
+  color: var(--text-main);
   font-weight: 600;
   font-size: 16px;
 }
@@ -2703,6 +2693,9 @@ select.form-control option:focus {
   color: #ef4444;
 }
 
+/* -- Severity Slider — CSS custom property approach ----------------- */
+/* JS sets --range-fill on the element; CSS pseudo-elements use it    */
+/* so the two-tone gradient works in WebKit AND Firefox, light & dark */
 .severity-slider {
   -webkit-appearance: none;
   appearance: none;
@@ -2710,19 +2703,37 @@ select.form-control option:focus {
   height: 8px;
   border-radius: 10px;
   outline: none;
-  background: #e5e7eb; /* Fallback */
+  background: transparent;
   margin-top: 12px;
+  --range-fill: 50%;
 }
 
-/* Filled track portion */
+/* WebKit/Chrome/Safari — gradient on the track pseudo-element */
 .severity-slider::-webkit-slider-runnable-track {
   height: 8px;
   border-radius: 10px;
+  background: linear-gradient(90deg, #6366f1 var(--range-fill), #e5e7eb var(--range-fill));
 }
 
+[data-theme="dark"] .severity-slider::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, #6366f1 var(--range-fill), #334155 var(--range-fill));
+}
+
+/* Firefox — separate track + progress pseudo-elements */
 .severity-slider::-moz-range-track {
   height: 8px;
   border-radius: 10px;
+  background: #e5e7eb;
+}
+
+[data-theme="dark"] .severity-slider::-moz-range-track {
+  background: #334155;
+}
+
+.severity-slider::-moz-range-progress {
+  height: 8px;
+  border-radius: 10px;
+  background: #6366f1;
 }
 
 /* Custom Thumb (Circle) */
@@ -2733,7 +2744,7 @@ select.form-control option:focus {
   border-radius: 50%;
   background: #6366f1;
   cursor: pointer;
-  margin-top: -6px; /* Centering on track */
+  margin-top: -6px;
   box-shadow: 0 0 10px rgba(99, 102, 241, 0.7);
 }
 
@@ -2751,17 +2762,8 @@ select.form-control option:focus {
   text-align: center;
   font-size: 32px;
   font-weight: 700;
-  color: #e5e7eb;
+  color: var(--text-main);
   margin-top: 14px;
-}
-
-/* Dark mode track */
-[data-theme="dark"] .severity-slider::-webkit-slider-runnable-track {
-  background: #334155;
-}
-
-[data-theme="dark"] .severity-slider::-moz-range-track {
-  background: #334155;
 }
 
 .severity-value {

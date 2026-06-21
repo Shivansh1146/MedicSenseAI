@@ -909,7 +909,7 @@ function updateSeverityDisplay() {
     const val = slider.value;
     valueDisp.textContent = val;
     const percent = ((val - slider.min) / (slider.max - slider.min)) * 100;
-    slider.style.background = `linear-gradient(90deg, #6366f1 ${percent}%, #e5e7eb ${percent}%)`;
+    slider.style.setProperty('--range-fill', `${percent}%`);
   };
 
   slider.addEventListener("input", update);

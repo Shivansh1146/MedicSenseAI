@@ -31,7 +31,7 @@ from symptom_analyzer import SymptomAnalyzer
 
 init_db()
 
-app = Flask(__name__, template_folder="templates", static_folder="static")
+app = Flask(__name__, template_folder="../frontend", static_folder="../frontend")
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
 
 
