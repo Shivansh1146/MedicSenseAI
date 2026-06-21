@@ -1,6 +1,6 @@
 // MedicSense AI - Service Worker
-const CACHE_NAME = 'medicsense-ai-v30';
-const RUNTIME_CACHE = 'medicsense-runtime-v30';
+const CACHE_NAME = 'medicsense-ai-v31';
+const RUNTIME_CACHE = 'medicsense-runtime-v31';
 
 // Assets to cache on install
 const PRECACHE_ASSETS = [

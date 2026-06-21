@@ -863,8 +863,8 @@
           uniqueEvents.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
           renderTimeline(uniqueEvents);
         } else {
-          // If totally empty and not logged in (or brand new user), show dynamic demo
-          renderTimeline(getDemoEvents());
+          // Show empty state instead of demo data, matching notifications behavior
+          renderTimeline([]);
         }
       }
 
