@@ -3325,30 +3325,8 @@ function loadUserData() {
       state.appointments = JSON.parse(savedAppointments);
       updateAppointmentsList();
     } else {
-      // ── Demo seed: pre-fill one appointment so dashboard is never empty ──
-      const demoDate = new Date();
-      demoDate.setDate(demoDate.getDate() + 4); // 4 days from now
-      const demoDateStr = demoDate.toISOString().split("T")[0];
-      state.appointments = [
-        {
-          id: "demo_seed_001",
-          name: "Demo Patient",
-          phone: "9876543210",
-          email: "demo@medicsense.ai",
-          doctor: "dr_sharma",
-          doctor_name: "Dr. Priya Sharma",
-          specialty: "Cardiologist",
-          date: demoDateStr,
-          time: "10:30",
-          reason: "Routine cardiac check-up",
-          type: "in-person",
-          status: "confirmed",
-          timestamp: new Date().toISOString(),
-        },
-      ];
-      saveUserData();
+      state.appointments = [];
       updateAppointmentsList();
-      console.log("📅 Demo appointment seeded for first run");
     }
 
     const savedSymptoms = localStorage.getItem("medicsense_symptoms");
