@@ -2022,7 +2022,7 @@ function updateAppointmentsList() {
             <div class="appointment-actions">
               ${
                 showCancel
-                  ? `<button class="cancel-btn" data-apt-id="${apt.id}">Cancel</button>`
+                  ? `<button class="cancel-btn" data-apt-id="${apt.id}" onclick="event.stopPropagation(); window.cancelAppointmentUI('${apt.id}', this)">Cancel</button>`
                   : ""
               }
             </div>
@@ -2034,6 +2034,7 @@ function updateAppointmentsList() {
   updateAppointmentTimes();
 }
 
+window.cancelAppointmentUI = cancelAppointmentUI;
 async function cancelAppointmentUI(appointmentId, btnElement) {
   console.log(
     `[Appointments] cancelAppointmentUI called with ID: ${appointmentId}`
