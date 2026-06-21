@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * MedicSense AI - Ultra Professional Frontend CSS
  * Problem Statement Solution Design
  * Best-in-Class Healthcare UI
@@ -2696,7 +2696,7 @@ select.form-control option:focus {
   color: #ef4444;
 }
 
-/* -- Severity Slider — CSS custom property approach ----------------- */
+/* -- Severity Slider ï¿½ CSS custom property approach ----------------- */
 /* JS sets --range-fill on the element; CSS pseudo-elements use it    */
 /* so the two-tone gradient works in WebKit AND Firefox, light & dark */
 .severity-slider {
@@ -2711,7 +2711,7 @@ select.form-control option:focus {
   --range-fill: 0%;
 }
 
-/* WebKit/Chrome/Safari — gradient on the track pseudo-element */
+/* WebKit/Chrome/Safari ï¿½ gradient on the track pseudo-element */
 .severity-slider::-webkit-slider-runnable-track {
   height: 8px;
   border-radius: 10px;
@@ -2722,7 +2722,7 @@ select.form-control option:focus {
   background: linear-gradient(90deg, #6366f1 var(--range-fill), #334155 var(--range-fill));
 }
 
-/* Firefox — separate track + progress pseudo-elements */
+/* Firefox ï¿½ separate track + progress pseudo-elements */
 .severity-slider::-moz-range-track {
   height: 8px;
   border-radius: 10px;
@@ -4871,8 +4871,8 @@ textarea.form-control.is-invalid {
   backdrop-filter: blur(12px);
   border: 1px solid rgba(226, 232, 240, 0.7);
   border-radius: var(--radius-lg);
-  padding: 1rem 1.25rem;
-  margin-bottom: 0.75rem;
+  padding: 0.65rem 1.15rem;
+  margin-bottom: 0.5rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: cardSlideIn 0.35s ease forwards;
 }
@@ -4975,9 +4975,9 @@ textarea.form-control.is-invalid {
 
 /* Doctor Avatar */
 .apt-doctor-avatar {
-  font-size: 2rem;
-  width: 52px;
-  height: 52px;
+  font-size: 1.6rem;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4985,7 +4985,7 @@ textarea.form-control.is-invalid {
   border-radius: 50%;
   flex-shrink: 0;
   margin-right: 0.75rem;
-  border: 2px solid var(--primary-100, #e0e7ff);
+  border: 1.5px solid var(--primary-100, #e0e7ff);
 }
 
 /* Specialty label */
