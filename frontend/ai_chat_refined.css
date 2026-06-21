@@ -555,6 +555,16 @@
   color: #f8fafc !important;
 }
 
+.chat-input::placeholder {
+  color: #64748b !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .chat-input::placeholder {
+  color: #94a3b8 !important;
+  opacity: 1 !important;
+}
+
 /* 4. Icon buttons (paperclip + mic): same 44×44 box */
 .input-action-btn {
   flex-shrink: 0 !important;

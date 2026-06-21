@@ -460,3 +460,177 @@ NO animations (foundational pass only)
 NO heavy borders
 NO inconsistent spacing
 */
+
+/* ============================================================
+   UNIFIED CONTRAST & VISIBILITY FOR INPUTS & PLACEHOLDERS
+   ============================================================ */
+
+/* Light mode defaults */
+.form-control,
+.symptom-textarea,
+select.form-control {
+  color: var(--text-main) !important;
+  background: #ffffff !important; /* Force clean white background */
+  border-color: #cbd5e1 !important; /* Readable border */
+}
+
+.chat-input {
+  color: var(--text-main) !important;
+  background: transparent !important;
+}
+
+/* Clear, highly readable placeholder text in light mode (using vendor prefixes to bypass browser defaults) */
+.form-control::-webkit-input-placeholder,
+.symptom-textarea::-webkit-input-placeholder,
+select.form-control::-webkit-input-placeholder,
+.chat-input::-webkit-input-placeholder {
+  color: #111827 !important; /* Matches --text-main (highly visible, excellent contrast) */
+  opacity: 0.75 !important;   /* Slightly softer so it feels like a placeholder, but fully visible */
+}
+
+.form-control::-moz-placeholder,
+.symptom-textarea::-moz-placeholder,
+select.form-control::-moz-placeholder,
+.chat-input::-moz-placeholder {
+  color: #111827 !important;
+  opacity: 0.75 !important;
+}
+
+.form-control:-ms-input-placeholder,
+.symptom-textarea:-ms-input-placeholder,
+select.form-control:-ms-input-placeholder,
+.chat-input:-ms-input-placeholder {
+  color: #111827 !important;
+  opacity: 0.75 !important;
+}
+
+.form-control::placeholder,
+.symptom-textarea::placeholder,
+select.form-control::placeholder,
+.chat-input::placeholder {
+  color: #111827 !important;
+  opacity: 0.75 !important;
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .symptom-textarea,
+[data-theme="dark"] select.form-control {
+  color: #f8fafc !important;
+  background: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] .chat-input {
+  color: #f8fafc !important;
+  background: transparent !important;
+}
+
+[data-theme="dark"] .form-control::-webkit-input-placeholder,
+[data-theme="dark"] .symptom-textarea::-webkit-input-placeholder,
+[data-theme="dark"] select.form-control::-webkit-input-placeholder,
+[data-theme="dark"] .chat-input::-webkit-input-placeholder {
+  color: #cbd5e1 !important;
+  opacity: 0.7 !important;
+}
+
+[data-theme="dark"] .form-control::-moz-placeholder,
+[data-theme="dark"] .symptom-textarea::-moz-placeholder,
+[data-theme="dark"] select.form-control::-moz-placeholder,
+[data-theme="dark"] .chat-input::-moz-placeholder {
+  color: #cbd5e1 !important;
+  opacity: 0.7 !important;
+}
+
+[data-theme="dark"] .form-control:-ms-input-placeholder,
+[data-theme="dark"] .symptom-textarea:-ms-input-placeholder,
+[data-theme="dark"] select.form-control:-ms-input-placeholder,
+[data-theme="dark"] .chat-input:-ms-input-placeholder {
+  color: #cbd5e1 !important;
+  opacity: 0.7 !important;
+}
+
+[data-theme="dark"] .form-control::placeholder,
+[data-theme="dark"] .symptom-textarea::placeholder,
+[data-theme="dark"] select.form-control::placeholder,
+[data-theme="dark"] .chat-input::placeholder {
+  color: #cbd5e1 !important;
+  opacity: 0.7 !important;
+}
+
+/* ============================================================
+   CHAT INPUT BUTTONS REFINEMENTS (Font Awesome Vectors)
+   ============================================================ */
+
+.attach-btn,
+.mic-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  font-size: 1.1rem !important;
+}
+
+/* Light mode styling */
+.attach-btn {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #475569 !important;
+}
+
+.attach-btn:hover {
+  background: rgba(0, 0, 0, 0.09) !important;
+  color: #0f172a !important;
+}
+
+.mic-btn {
+  color: #64748b !important;
+}
+
+.mic-btn:hover {
+  color: #0f172a !important;
+}
+
+/* Dark mode styling */
+[data-theme="dark"] .attach-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .attach-btn:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .mic-btn {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .mic-btn:hover {
+  color: #ffffff !important;
+}
+
+/* Send button icon adjustment */
+.send-btn i {
+  font-size: 1rem !important;
+}
+
+/* Dark Mode Icon Button Fixes - transparent bg, no square box */
+[data-theme="dark"] .icon-btn {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: #94a3b8 !important;
+  box-shadow: none !important;
+}
+
+[data-theme="dark"] .icon-btn:hover {
+  background: rgba(99, 102, 241, 0.12) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+  color: #a5b4fc !important;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.2) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Also remove border on the light mode at rest state */
+.icon-btn {
+  border: 1.5px solid transparent !important;
+}
