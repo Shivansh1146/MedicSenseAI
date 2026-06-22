@@ -26,7 +26,7 @@
     <style>
       body {
         padding-top: 0 !important;
-        background: var(--bg-main);
+        background: var(--bg-page);
       }
 
       .timeline-page-container {
@@ -551,9 +551,16 @@
                 ${
                   event.time
                     ? `<p><i class="fas fa-clock"></i> ${escHtml(event.time)}${
-                        event.date ? " · " + escHtml(event.date) : ""
+                        event.date ? " – " + escHtml(event.date) : ""
                       }</p>`
                     : ""
+                }
+                ${
+                  event.appointment_type === "video" 
+                    ? `<span class="status-badge type-video" style="margin-top: 8px;"><i class="fas fa-video"></i> Video Call</span>`
+                    : (event.appointment_type === "in-person"
+                      ? `<span class="status-badge type-in-person" style="margin-top: 8px;"><i class="fas fa-hospital"></i> In-Person</span>`
+                      : "")
                 }
               </div>
             </div>`;
@@ -810,6 +817,7 @@
                 localEvents.push({
                   id: apt.id,
                   type: "appointment",
+                  appointment_type: apt.type,
                   title: "Appointment Confirmed",
                   doctor: apt.doctor_name || apt.doctor || "Doctor",
                   description: apt.reason || "General consultation",

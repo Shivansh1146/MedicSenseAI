@@ -3264,6 +3264,29 @@ function downloadTextFile(content, filename) {
 // ========================================
 // LOCAL STORAGE FUNCTIONS
 // ========================================
+async function syncAppointmentsFromServer() {
+  try {
+    const userId = getUserId();
+    const response = await fetch(
+      `${CONFIG.API_BASE_URL}/appointments?user_id=${encodeURIComponent(userId)}`
+    );
+    if (!response.ok) return;
+
+    const data = await response.json();
+    if (data.success && Array.isArray(data.data)) {
+      state.appointments = data.data;
+      localStorage.setItem(
+        "medicsense_appointments",
+        JSON.stringify(state.appointments)
+      );
+      updateAppointmentsList();
+      console.log("📅 Appointments synced from server:", data.data.length);
+    }
+  } catch (error) {
+    console.warn("Could not sync appointments from server:", error);
+  }
+}
+
 function saveUserData() {
   try {
     localStorage.setItem("medicsense_user_id", state.currentUser);
@@ -3307,6 +3330,8 @@ function loadUserData() {
       state.appointments = [];
       updateAppointmentsList();
     }
+
+    syncAppointmentsFromServer();
 
     const savedSymptoms = localStorage.getItem("medicsense_symptoms");
     if (savedSymptoms) state.symptoms = JSON.parse(savedSymptoms);

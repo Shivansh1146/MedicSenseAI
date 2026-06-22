@@ -661,6 +661,18 @@ body.dark-mode {
   border: 1px solid rgba(139, 92, 246, 0.3) !important;
 }
 
+[data-theme="dark"] .status-badge.type-video {
+  background: rgba(99, 102, 241, 0.2) !important;
+  color: #a5b4fc !important;
+  border: 1px solid rgba(99, 102, 241, 0.3) !important;
+}
+
+[data-theme="dark"] .status-badge.type-in-person {
+  background: rgba(6, 182, 212, 0.2) !important;
+  color: #67e8f9 !important;
+  border: 1px solid rgba(6, 182, 212, 0.3) !important;
+}
+
 [data-theme="dark"] .apt-doctor-avatar {
   background: rgba(99, 102, 241, 0.15) !important;
   border-color: rgba(99, 102, 241, 0.25) !important;
@@ -4973,6 +4985,19 @@ textarea.form-control.is-invalid {
   background: #ede9fe;
   color: #6d28d9;
   border: 1px solid #ddd6fe;
+}
+
+/* Appointment Type Badges */
+.status-badge.type-video {
+  background: #e0e7ff;
+  color: #4338ca;
+  border: 1px solid #c7d2fe;
+}
+
+.status-badge.type-in-person {
+  background: #cffafe;
+  color: #0e7490;
+  border: 1px solid #a5f3fc;
 }
 
 /* Doctor Avatar */
