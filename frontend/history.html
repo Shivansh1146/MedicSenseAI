@@ -398,6 +398,17 @@
 
     gtag('config', 'G-Y71S97VMSP');
   </script>
+
+  <script>
+    // Track SPA hash navigation
+    window.addEventListener('hashchange', function() {
+      if (typeof gtag === 'function') {
+        gtag('event', 'page_view', {
+          page_path: window.location.pathname + window.location.search + window.location.hash
+        });
+      }
+    });
+  </script>
 </head>
   <body>
     <button onclick="window.history.back()" class="back-btn">
