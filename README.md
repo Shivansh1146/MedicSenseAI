@@ -121,6 +121,7 @@ medisence-ai/
 | :--- | :--- |
 | **Soft Gate Authentication** | Implemented a 'Soft Gate' strategy: users can browse the landing page, but trying to chat, analyze symptoms, book appointments, or view private pages automatically pops the Firebase Auth modal. |
 | **Image Upload Auth Guard** | Added an explicit authentication intercept to the AI Chat image uploader to ensure file uploads are strictly protected. |
+| **Google Analytics** | Added Google Analytics tracking code to monitor visitor traffic and interactions across the application. |
 | **Appointment Type Badges** | Added high-contrast, premium styling badges for 'In-Person' (Vibrant Cyan) and 'Video Call' (Indigo) across all appointment cards and health timeline events |
 | **Status Badge Contrast** | Fixed critical light mode contrast issues by mapping badge colors to dynamic CSS variables instead of hardcoded overrides |
 | **Dashboard Layout Cleanup** | Removed the redundant 'Recent Appointments' sidebar from the main dashboard and dynamically centered the booking form with a clean max-width |
