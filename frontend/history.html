@@ -551,9 +551,16 @@
                 ${
                   event.time
                     ? `<p><i class="fas fa-clock"></i> ${escHtml(event.time)}${
-                        event.date ? " · " + escHtml(event.date) : ""
+                        event.date ? " – " + escHtml(event.date) : ""
                       }</p>`
                     : ""
+                }
+                ${
+                  event.appointment_type === "video" 
+                    ? `<span style="display: inline-block; margin-top: 8px; font-size: 0.75rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; background: rgba(99, 102, 241, 0.1); color: var(--primary-600);"><i class="fas fa-video"></i> Video Call</span>`
+                    : (event.appointment_type === "in-person"
+                      ? `<span style="display: inline-block; margin-top: 8px; font-size: 0.75rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; background: rgba(100, 116, 139, 0.1); color: var(--text-muted);"><i class="fas fa-hospital"></i> In-Person</span>`
+                      : "")
                 }
               </div>
             </div>`;
@@ -810,6 +817,7 @@
                 localEvents.push({
                   id: apt.id,
                   type: "appointment",
+                  appointment_type: apt.type,
                   title: "Appointment Confirmed",
                   doctor: apt.doctor_name || apt.doctor || "Doctor",
                   description: apt.reason || "General consultation",
