@@ -119,6 +119,9 @@ medisence-ai/
 
 | Fix | Description |
 | :--- | :--- |
+| **Appointment Type Badges** | Added high-contrast, premium styling badges for 'In-Person' (Vibrant Cyan) and 'Video Call' (Indigo) across all appointment cards and health timeline events |
+| **Status Badge Contrast** | Fixed critical light mode contrast issues by mapping badge colors to dynamic CSS variables instead of hardcoded overrides |
+| **Dashboard Layout Cleanup** | Removed the redundant 'Recent Appointments' sidebar from the main dashboard and dynamically centered the booking form with a clean max-width |
 | **Health Timeline lag fix** | Rewrote timeline loading to render local events instantly (0ms delay), syncing backend data seamlessly in the background |
 | **Cancel Button fix** | Fixed un-clickable Cancel buttons on Recent Appointments by replacing event delegation with guaranteed inline `onclick` handlers |
 | **Dummy data seeding removed** | Removed the hardcoded `demo_seed_001` dummy appointment that auto-populated into local storage when the dashboard was empty |
