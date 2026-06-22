@@ -350,6 +350,20 @@ function clearAuthState() {
   console.log("✅ Auth state cleared");
 }
 
+// ------------------------------------------------------------------
+// SOFT GATE: Authentication Guard
+// ------------------------------------------------------------------
+function requireAuth(actionName = "use this feature") {
+  if (!AUTHENTICATED_USER) {
+    console.log(`🔒 Authentication required to ${actionName}`);
+    showToast(`Please sign in to ${actionName}`, "warning");
+    openAuthModal();
+    return false;
+  }
+  return true;
+}
+
+
 // Critical initialization that MUST complete
 async function initializeCriticalSystems() {
   console.log("🏥 MedicSense AI - Starting critical initialization");
@@ -357,6 +371,15 @@ async function initializeCriticalSystems() {
   try {
     // 1. Restore auth state from localStorage FIRST
     restoreAuthState();
+
+    // 1.5 Page Route Guard (Soft Gate for private pages)
+    const privatePages = ["appointments.html", "history.html", "notifications.html", "profile.html"];
+    const currentPage = window.location.pathname.split("/").pop();
+    if (privatePages.includes(currentPage) && !AUTHENTICATED_USER) {
+      console.log("🔒 Unauthorized access to private page. Redirecting to index.");
+      window.location.replace("index.html?auth=required");
+      return false; // Stop initialization
+    }
 
     // 2. Core synchronous initialization
     initializeAppCore();
@@ -412,6 +435,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Phase 2: Hide loader immediately after critical systems ready
     // Don't wait for optional services
     LoaderManager.hide();
+
+    // Check for auth=required parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("auth") === "required") {
+      setTimeout(() => {
+        showToast("Please sign in to access that page.", "warning");
+        openAuthModal();
+      }, 500);
+    }
 
     // Phase 3: Load optional systems in background (non-blocking)
     initializeOptionalSystems().catch((err) => {
@@ -1008,6 +1040,9 @@ function addSymptom(symptom, element) {
 }
 
 async function analyzeSymptoms() {
+  // 🔒 SOFT GATE CHECK
+  if (!requireAuth("analyze symptoms")) return;
+
   // ✅ Rule 1: Immediate lock at the absolute top
   if (isAnalyzing) return;
   isAnalyzing = true;
@@ -1561,6 +1596,7 @@ function selectSlot(time) {
 }
 
 async function bookAppointment() {
+  if (!requireAuth("book an appointment")) return;
   console.log("🚀 Booking appointment initiated - Validation Active");
 
   // Clear previous errors first
@@ -2172,6 +2208,9 @@ function handleChatKeyPress(event) {
 }
 
 async function sendChatMessage(quickMessage = null) {
+  // 🔒 SOFT GATE CHECK
+  if (!requireAuth("use the AI Medical Assistant")) return;
+
   const input = document.getElementById("chatInput");
   const message = quickMessage || input?.value.trim();
 
