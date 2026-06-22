@@ -216,29 +216,7 @@
         flex-shrink: 0;
       }
 
-      .apt-page-container .status-badge.cancelled {
-        background: rgba(239, 68, 68, 0.15);
-        color: #fca5a5;
-        border-color: rgba(239, 68, 68, 0.35);
-      }
 
-      .apt-page-container .status-badge.confirmed {
-        background: rgba(59, 130, 246, 0.15);
-        color: #93c5fd;
-        border-color: rgba(59, 130, 246, 0.35);
-      }
-
-      .apt-page-container .cancel-btn {
-        min-width: 90px;
-        text-align: center;
-        border-color: #f87171;
-        color: #fca5a5;
-      }
-
-      .apt-page-container .cancel-btn:hover {
-        background: #ef4444;
-        color: #fff;
-      }
 
       .apt-status-chip {
         display: inline-flex;
@@ -757,9 +735,9 @@
               apt.status.charAt(0).toUpperCase() + apt.status.slice(1);
             let typeBadge = "";
             if (apt.type === "video") {
-              typeBadge = `<span class="status-badge" style="background: rgba(99, 102, 241, 0.1); color: var(--primary-600); margin-top: 0; border: 1px solid rgba(99, 102, 241, 0.2);"><i class="fas fa-video"></i> Video Call</span>`;
+              typeBadge = `<span class="status-badge type-video" style="margin-top: 0;"><i class="fas fa-video"></i> Video Call</span>`;
             } else if (apt.type === "in-person") {
-              typeBadge = `<span class="status-badge" style="background: rgba(100, 116, 139, 0.1); color: var(--text-muted); margin-top: 0; border: 1px solid rgba(100, 116, 139, 0.2);"><i class="fas fa-hospital"></i> In-Person</span>`;
+              typeBadge = `<span class="status-badge type-in-person" style="margin-top: 0;"><i class="fas fa-hospital"></i> In-Person</span>`;
             }
 
             return `
