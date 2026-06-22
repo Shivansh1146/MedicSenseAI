@@ -2901,6 +2901,12 @@ function attachFile() {
 }
 
 async function handleChatImageUpload(event) {
+  // 🔒 SOFT GATE CHECK
+  if (!requireAuth("upload an image for analysis")) {
+    event.target.value = ""; // Clear the file input
+    return;
+  }
+
   const file = event.target.files[0];
   if (!file) return;
 
